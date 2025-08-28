@@ -4,13 +4,12 @@ class Solution {
         Arrays.sort(g);
         Arrays.sort(s);
 
-      int a=g.length;
-      int b=s.length;
+      
 
       //yeh pointers bane hai for interation:
       int i=0;
       int j=0;
-      while(i<a && j<b){
+      while(i<g.length && j<s.length){
         if(g[i]<=s[j]){
             i++;
         }
