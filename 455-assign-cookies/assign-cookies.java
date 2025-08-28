@@ -3,9 +3,6 @@ class Solution {
 
         Arrays.sort(g);
         Arrays.sort(s);
-
-      
-
       //yeh pointers bane hai for interation:
       int i=0;
       int j=0;
