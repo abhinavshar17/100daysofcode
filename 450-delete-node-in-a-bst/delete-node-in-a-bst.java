@@ -22,22 +22,23 @@ class Solution {
         } else if (key > root.val) {
             root.right = deleteNode(root.right, key);
         } else {
+
             // Found the node to delete
             if (root.left == null) return root.right;
             else if (root.right == null) return root.left;
 
             // Two children case
-            TreeNode successor = findMin(root.right);
-            root.val = successor.val; // replace with successor value
-            root.right = deleteNode(root.right, successor.val); // delete successor
+            TreeNode temp = findMin(root.right); //righ subtree mein sbse smaller node
+            root.val = temp.val;  //connect
+            root.right = deleteNode(root.right, temp.val); // delete successor
         }
         return root;
     }
-
-    private TreeNode findMin(TreeNode node) {
-        while (node.left != null) {
-            node = node.left;
+//find min sbse choti node so it must be found in left sidee:
+    private TreeNode findMin(TreeNode root) {
+        while (root.left != null) {
+            root = root.left;
         }
-        return node;
+        return root;
     }
 }
