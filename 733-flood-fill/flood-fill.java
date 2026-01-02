@@ -1,35 +1,36 @@
 class Solution {
-    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+    int rows; //total rows
+    int cols; //total colums;
 
-        int old = image[sr][sc];
-        if (old == color) return image;
+    void dfs(int row,int col,int color,int currColor,boolean visited[][],
+    int[][] image){
 
-        int m = image.length;
-        int n = image[0].length;
-
-        Queue<int[]> q = new LinkedList<>();
-        q.add(new int[]{sr, sc});
-        image[sr][sc] = color;
-
-        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
-
-        while(!q.isEmpty()) {
-
-            int[] cell = q.poll();
-            int r = cell[0], c = cell[1];
-
-            for(int[] d : dirs) {
-                int nr = r + d[0];
-                int nc = c + d[1];
-
-                if(nr >= 0 && nr < m && nc >= 0 && nc < n &&
-                   image[nr][nc] == old) {
-
-                    image[nr][nc] = color;
-                    q.add(new int[]{nr, nc});
-                }
-            }
+        //out of bound: ya toh 0 ne kam ho jae rows ya fer total number of rows ya colums se jyada ho jae
+        if(row<0 || row>=rows || col<0 || col>=cols){
+            return;
         }
-        return image;
+        if(image[row][col]!=currColor){
+            return;
+        }
+        if(visited[row][col]){
+            return;
+        }
+        image[row][col]=color;
+        visited[row][col]=true;
+
+        //neighbours
+        int adjList[][]={{row,col-1},{row,col+1},{row+1,col},{row-1,col}};
+        for(int neighbour[]:adjList){
+            dfs(neighbour[0],neighbour[1],color,currColor,visited,image);
+        }
+        
+
     }
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        rows=image.length;
+        cols=image[0].length; 
+        boolean [][]visited=new boolean[rows][cols];
+         dfs(sr,sc,color,image[sr][sc],visited,image);
+         return image;
+           }
 }
